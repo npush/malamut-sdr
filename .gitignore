@@ -1,0 +1,23 @@
+# Compiled binaries
+*.bin
+*.elf
+*.hex
+*.map
+
+# Trash
+*.bak
+
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.obj
+*.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+build/
