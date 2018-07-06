@@ -23,45 +23,26 @@ BUILDDIR = build
 
 STARTUP = startup/startup_stm32f407xx.s
 
-SOURCES = src \
-		$(shell find -L $(CMSIS) -name '*.c') \
-		$(shell find -L $(_4x7_ETH_DRV) -name '*.c') \
+SOURCES = $(shell find -L src -name '*.c') \
 		$(shell find -L $(STD_DRV) -name '*.c') \
-		$(shell find -L $(ETH_DRV) -name '*.c') \
 		$(shell find -L $(USB_DEV_DRV) -name '*.c') \
-		#$(shell find -L $(USB_HOST_DRV) -name '*.c') \
-		$(shell find -L $(USB_OTG_DRV) -name '*.c') \
+		$(shell find -L $(USB_OTG_DRV) -name '*.c')
+#SOURCES += $(shell find -L $(CMSIS) -name '*.c') \
 
-INCLUDES = -I$(shell find -L $(CMSIS) -name '*.h' -exec dirname {} \; | uniq) \
-			-I$(shell find -L $(_4x7_ETH_DRV) -name '*.h' -exec dirname {} \; | uniq) \
-			-I$(shell find -L $(STD_DRV) -name '*.h' -exec dirname {} \; | uniq) \
-			-I$(shell find -L $(ETH_DRV) -name '*.h' -exec dirname {} \; | uniq) \
-			-I$(shell find -L $(USB_DEV_DRV) -name '*.h' -exec dirname {} \; | uniq) \
-			#-I$(shell find -L $(USB_HOST_DRV) -name '*.h' -exec dirname {} \; | uniq) \
-			-I$(shell find -L $(USB_OTG_DRV) -name '*.h' -exec dirname {} \; | uniq) \
-			-Iinc \
-			-Ijpeg \
-			-Isrc/usb_cdc \
-			-Isrc/lcd \
-			-Isrc/FFT \
-
-
-
-
-#src
-#src/FFT
-#src/lcd
-#src/usb_cdc
-#Jpeg
-#inc
-#Libraries/CMSIS/Include
-#Libraries/CMSIS/Device/ST/STM32F4xx/Include
-#Libraries/STM32F4xx_StdPeriph_Driver/inc
-#Libraries/STM32_USB_Device_Library/Class/cdc/inc
-#Libraries/STM32_USB_Device_Library/Class/dfu/inc
-#Libraries/STM32_USB_Device_Library/Class/msc/inc
-#Libraries/STM32_USB_Device_Library/Core/inc
-#Libraries/STM32_USB_OTG_Driver/inc
+INCLUDES += -Isrc
+INCLUDES += -Isrc/FFT
+INCLUDES += -Isrc/lcd
+INCLUDES += -Isrc/usb_cdc
+INCLUDES += -Ijpeg
+INCLUDES += -Iinc
+INCLUDES += -I$(CMSIS)/Include
+INCLUDES += -I$(CMSIS)/Device/ST/STM32F4xx/Include
+INCLUDES += -I$(STD_DRV)/inc
+INCLUDES += -I$(USB_DEV_DRV)/Class/cdc/inc
+INCLUDES += -I$(USB_DEV_DRV)/Class/dfu/inc
+INCLUDES += -I$(USB_DEV_DRV)/Class/msc/inc
+INCLUDES += -I$(USB_DEV_DRV)/Core/inc
+INCLUDES += -I$(USB_OTG_DRV)/inc
 
 
 # Find header directories
@@ -82,7 +63,7 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DHSE_VALUE=8000000
 
 CFLAGS = -O0 -ggdb -Wall \
-	-std=gnu99
+	-std=gnu99 \
 	-mcpu=cortex-m4 -mthumb \
 	-mfpu=fpv4-sp-d16 -mfloat-abi=hard \
 	$(DEFS) \
