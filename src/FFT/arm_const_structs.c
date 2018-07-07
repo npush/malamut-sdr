@@ -41,36 +41,37 @@
 * -------------------------------------------------------------------- */
 
 #include "arm_const_structs.h"
+#define CCM_RAM __attribute__((section(".ccmram")))
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len16 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len16 CCM_RAM= {
 	16, twiddleCoef_16, armBitRevIndexTable16, ARMBITREVINDEXTABLE__16_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len32 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len32 CCM_RAM= {
 	32, twiddleCoef_32, armBitRevIndexTable32, ARMBITREVINDEXTABLE__32_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len64 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len64 CCM_RAM= {
 	64, twiddleCoef_64, armBitRevIndexTable64, ARMBITREVINDEXTABLE__64_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len128 @"CCM_RAM" = {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len128 CCM_RAM = {
 	128, twiddleCoef_128, armBitRevIndexTable128, ARMBITREVINDEXTABLE_128_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len256 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len256 CCM_RAM= {
 	256, twiddleCoef_256, armBitRevIndexTable256, ARMBITREVINDEXTABLE_256_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len512 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len512 CCM_RAM= {
 	512, twiddleCoef_512, armBitRevIndexTable512, ARMBITREVINDEXTABLE_512_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len1024 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len1024 CCM_RAM= {
 	1024, twiddleCoef_1024, armBitRevIndexTable1024, ARMBITREVINDEXTABLE1024_TABLE_LENGTH
 };
 
-const arm_cfft_instance_f32 arm_cfft_sR_f32_len2048 @"CCM_RAM"= {
+const arm_cfft_instance_f32 arm_cfft_sR_f32_len2048 CCM_RAM= {
 	2048, twiddleCoef_2048, armBitRevIndexTable2048, ARMBITREVINDEXTABLE2048_TABLE_LENGTH
 };
 

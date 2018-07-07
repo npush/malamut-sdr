@@ -4,8 +4,8 @@
 #define nrOrd (int)(128)// порядок должен быть кратен 4(48)
 #define nrM_delay_max (int)(128)//задержка (96)
 #define nrDelay_length (nrM_delay_max+(FFT_FILTER_SIZE/2))
-float nrH[nrOrd]@"CCM_RAM";
-float nrX[nrDelay_length]@"CCM_RAM";
+float nrH[nrOrd] CCM_RAM;
+float nrX[nrDelay_length] CCM_RAM;
 
 void DNR_filter(float* Xinp, int size)
 {

@@ -77,7 +77,10 @@
 /*    
 * @brief  Table for bit reversal process    
 */
-const uint16_t armBitRevTable[1024]@"CCM_RAM" = {
+
+#define CCM_RAM __attribute__((section(".ccmram")))
+
+const uint16_t armBitRevTable[1024]CCM_RAM = {
    0x400, 0x200, 0x600, 0x100, 0x500, 0x300, 0x700, 0x80, 0x480, 0x280, 
    0x680, 0x180, 0x580, 0x380, 0x780, 0x40, 0x440, 0x240, 0x640, 0x140, 
    0x540, 0x340, 0x740, 0xc0, 0x4c0, 0x2c0, 0x6c0, 0x1c0, 0x5c0, 0x3c0, 
@@ -203,7 +206,7 @@ const uint16_t armBitRevTable[1024]@"CCM_RAM" = {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_16[32]@"CCM_RAM" = {
+const float32_t twiddleCoef_16[32]CCM_RAM = {
     1.000000000f,  0.000000000f,
     0.923879533f,  0.382683432f,
     0.707106781f,  0.707106781f,
@@ -237,7 +240,7 @@ const float32_t twiddleCoef_16[32]@"CCM_RAM" = {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_32[64]@"CCM_RAM" = {
+const float32_t twiddleCoef_32[64]CCM_RAM = {
     1.000000000f,  0.000000000f,
     0.980785280f,  0.195090322f,
     0.923879533f,  0.382683432f,
@@ -287,7 +290,7 @@ const float32_t twiddleCoef_32[64]@"CCM_RAM" = {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_64[128]@"CCM_RAM" = {
+const float32_t twiddleCoef_64[128]CCM_RAM = {
     1.000000000f,  0.000000000f,
     0.995184727f,  0.098017140f,
     0.980785280f,  0.195090322f,
@@ -370,7 +373,7 @@ const float32_t twiddleCoef_64[128]@"CCM_RAM" = {
 *     
 */
 
-const float32_t twiddleCoef_128[256] @"CCM_RAM"= {
+const float32_t twiddleCoef_128[256] CCM_RAM= {
 1.000000000f	,	0.000000000f	,
 0.998795456f	,	0.049067674f	,
 0.995184727f	,	0.098017140f	,
@@ -516,7 +519,7 @@ const float32_t twiddleCoef_128[256] @"CCM_RAM"= {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_256[512] @"CCM_RAM" = {
+const float32_t twiddleCoef_256[512] CCM_RAM = {
     1.000000000f,  0.000000000f,
     0.999698819f,  0.024541229f,
     0.998795456f,  0.049067674f,
@@ -790,7 +793,7 @@ const float32_t twiddleCoef_256[512] @"CCM_RAM" = {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_512[1024] @"CCM_RAM" = {
+const float32_t twiddleCoef_512[1024] CCM_RAM = {
     1.000000000f,  0.000000000f,
     0.999924702f,  0.012271538f,
     0.999698819f,  0.024541229f,
@@ -1319,7 +1322,7 @@ const float32_t twiddleCoef_512[1024] @"CCM_RAM" = {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_1024[2048] @"CCM_RAM" = {
+const float32_t twiddleCoef_1024[2048] CCM_RAM = {
 1.000000000f	,	0.000000000f	,
 0.999981175f	,	0.006135885f	,
 0.999924702f	,	0.012271538f	,
@@ -2361,7 +2364,7 @@ const float32_t twiddleCoef_1024[2048] @"CCM_RAM" = {
 * Cos and Sin values are in interleaved fashion    
 *     
 */
-const float32_t twiddleCoef_2048[4096] @"CCM_RAM"= {
+const float32_t twiddleCoef_2048[4096] CCM_RAM= {
     1.000000000f,  0.000000000f,
     0.999995294f,  0.003067957f,
     0.999981175f,  0.006135885f,
@@ -10410,13 +10413,13 @@ const q31_t armRecipTableQ31[64] = {
   0x41CCDDB6, 0x4146A3C6, 0x40C28923, 0x40408102
 };
 
-const uint16_t armBitRevIndexTable16[ARMBITREVINDEXTABLE__16_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable16[ARMBITREVINDEXTABLE__16_TABLE_LENGTH] CCM_RAM= 
 {
    //8x2, size 20
    8,64, 24,72, 16,64, 40,80, 32,64, 56,88, 48,72, 88,104, 72,96, 104,112
 };
 
-const uint16_t armBitRevIndexTable32[ARMBITREVINDEXTABLE__32_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable32[ARMBITREVINDEXTABLE__32_TABLE_LENGTH] CCM_RAM= 
 {
    //8x4, size 48
    8,64, 16,128, 24,192, 32,64, 40,72, 48,136, 56,200, 64,128, 72,80, 88,208,
@@ -10424,7 +10427,7 @@ const uint16_t armBitRevIndexTable32[ARMBITREVINDEXTABLE__32_TABLE_LENGTH] @"CCM
    152,224, 176,208, 184,232, 216,240, 200,224, 232,240
 };
 
-const uint16_t armBitRevIndexTable64[ARMBITREVINDEXTABLE__64_TABLE_LENGTH] @"CCM_RAM" = 
+const uint16_t armBitRevIndexTable64[ARMBITREVINDEXTABLE__64_TABLE_LENGTH] CCM_RAM = 
 {   
    //radix 8, size 56
    8,64, 16,128, 24,192, 32,256, 40,320, 48,384, 56,448, 80,136, 88,200, 
@@ -10433,7 +10436,7 @@ const uint16_t armBitRevIndexTable64[ARMBITREVINDEXTABLE__64_TABLE_LENGTH] @"CCM
    368,424, 376,488, 440,496
 };
 
-const uint16_t armBitRevIndexTable128[ARMBITREVINDEXTABLE_128_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable128[ARMBITREVINDEXTABLE_128_TABLE_LENGTH] CCM_RAM= 
 {
    //8x2, size 208
    8,512, 16,64, 24,576, 32,128, 40,640, 48,192, 56,704, 64,256, 72,768, 
@@ -10451,7 +10454,7 @@ const uint16_t armBitRevIndexTable128[ARMBITREVINDEXTABLE_128_TABLE_LENGTH] @"CC
    904,928, 912,960, 920,992, 944,968, 952,1000, 968,992, 984,1008
 };
 
-const uint16_t armBitRevIndexTable256[ARMBITREVINDEXTABLE_256_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable256[ARMBITREVINDEXTABLE_256_TABLE_LENGTH] CCM_RAM= 
 {
    //8x4, size 440
    8,512, 16,1024, 24,1536, 32,64, 40,576, 48,1088, 56,1600, 64,128, 72,640, 
@@ -10489,7 +10492,7 @@ const uint16_t armBitRevIndexTable256[ARMBITREVINDEXTABLE_256_TABLE_LENGTH] @"CC
    1960,1968, 2008,2032, 1992,2016, 2024,2032
 };
 
-const uint16_t armBitRevIndexTable512[ARMBITREVINDEXTABLE_512_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable512[ARMBITREVINDEXTABLE_512_TABLE_LENGTH] CCM_RAM= 
 {
    //radix 8, size 448
    8,512, 16,1024, 24,1536, 32,2048, 40,2560, 48,3072, 56,3584, 72,576, 
@@ -10529,7 +10532,7 @@ const uint16_t armBitRevIndexTable512[ARMBITREVINDEXTABLE_512_TABLE_LENGTH] @"CC
    3448,3952, 3512,4016, 3576,4080
 };
 
-const uint16_t armBitRevIndexTable1024[ARMBITREVINDEXTABLE1024_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable1024[ARMBITREVINDEXTABLE1024_TABLE_LENGTH] CCM_RAM= 
 {
    //8x2, size 1800
    8,4096, 16,512, 24,4608, 32,1024, 40,5120, 48,1536, 56,5632, 64,2048, 
@@ -10681,7 +10684,7 @@ const uint16_t armBitRevIndexTable1024[ARMBITREVINDEXTABLE1024_TABLE_LENGTH] @"C
    8112,8136, 8120,8168, 8136,8160, 8152,8176
 };
 
-const uint16_t armBitRevIndexTable2048[ARMBITREVINDEXTABLE2048_TABLE_LENGTH] @"CCM_RAM"= 
+const uint16_t armBitRevIndexTable2048[ARMBITREVINDEXTABLE2048_TABLE_LENGTH] CCM_RAM= 
 {
    //8x2, size 3808
    8,4096, 16,8192, 24,12288, 32,512, 40,4608, 48,8704, 56,12800, 64,1024, 
@@ -11403,7 +11406,7 @@ const uint16_t armBitRevIndexTable4096[ARMBITREVINDEXTABLE4096_TABLE_LENGTH] =
 * \par    
 * Real and Imag values are in interleaved fashion    
 */
-const float32_t twiddleCoef_rfft_32[32] @"CCM_RAM" = {
+const float32_t twiddleCoef_rfft_32[32] CCM_RAM = {
 0.0f			,	1.0f			,
 0.195090322f	,	0.98078528f 	,
 0.382683432f	,	0.923879533f	,
@@ -11422,7 +11425,7 @@ const float32_t twiddleCoef_rfft_32[32] @"CCM_RAM" = {
 0.195090322f	,	-0.98078528f	
 };
 
-const float32_t twiddleCoef_rfft_64[64] @"CCM_RAM"= {
+const float32_t twiddleCoef_rfft_64[64] CCM_RAM= {
 0.0f,	1.0f,
 0.098017140329561f,	0.995184726672197f,
 0.195090322016128f,	0.98078528040323f,
@@ -11457,7 +11460,7 @@ const float32_t twiddleCoef_rfft_64[64] @"CCM_RAM"= {
 0.098017140329561f,	-0.995184726672197f
 };
 
-const float32_t twiddleCoef_rfft_128[128] @"CCM_RAM"= {
+const float32_t twiddleCoef_rfft_128[128] CCM_RAM= {
     0.000000000f,  1.000000000f,
     0.049067674f,  0.998795456f,
     0.098017140f,  0.995184727f,
@@ -11524,7 +11527,7 @@ const float32_t twiddleCoef_rfft_128[128] @"CCM_RAM"= {
     0.049067674f, -0.998795456f
 };
 
-const float32_t twiddleCoef_rfft_256[256] @"CCM_RAM"= {
+const float32_t twiddleCoef_rfft_256[256] CCM_RAM= {
     0.000000000f,  1.000000000f,
     0.024541229f,  0.999698819f,
     0.049067674f,  0.998795456f,
@@ -11655,7 +11658,7 @@ const float32_t twiddleCoef_rfft_256[256] @"CCM_RAM"= {
     0.024541229f, -0.999698819f
 };
 
-const float32_t twiddleCoef_rfft_512[512] @"CCM_RAM"= {
+const float32_t twiddleCoef_rfft_512[512] CCM_RAM= {
     0.000000000f,  1.000000000f,
     0.012271538f,  0.999924702f,
     0.024541229f,  0.999698819f,
@@ -11914,7 +11917,7 @@ const float32_t twiddleCoef_rfft_512[512] @"CCM_RAM"= {
     0.012271538f, -0.999924702f
 };
 
-const float32_t twiddleCoef_rfft_1024[1024] @"CCM_RAM"= {
+const float32_t twiddleCoef_rfft_1024[1024] CCM_RAM= {
     0.000000000f,  1.000000000f,
     0.006135885f,  0.999981175f,
     0.012271538f,  0.999924702f,
@@ -12429,7 +12432,7 @@ const float32_t twiddleCoef_rfft_1024[1024] @"CCM_RAM"= {
     0.006135885f, -0.999981175f
 };
 
-const float32_t twiddleCoef_rfft_2048[2048] @"CCM_RAM"= {
+const float32_t twiddleCoef_rfft_2048[2048] CCM_RAM= {
     0.000000000f,  1.000000000f,
     0.003067957f,  0.999995294f,
     0.006135885f,  0.999981175f,
@@ -15521,7 +15524,7 @@ const float32_t twiddleCoef_rfft_4096[4096] = {
  * where pi value is  3.14159265358979    
  */
 
-const float32_t sinTable_f32[FAST_MATH_TABLE_SIZE + 1] @"CCM_RAM"= {
+const float32_t sinTable_f32[FAST_MATH_TABLE_SIZE + 1] CCM_RAM= {
    0.00000000f, 0.01227154f, 0.02454123f, 0.03680722f, 0.04906767f, 0.06132074f,
    0.07356456f, 0.08579731f, 0.09801714f, 0.11022221f, 0.12241068f, 0.13458071f,
    0.14673047f, 0.15885814f, 0.17096189f, 0.18303989f, 0.19509032f, 0.20711138f,

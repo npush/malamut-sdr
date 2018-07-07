@@ -23,10 +23,10 @@ __IO COMPLEX_long *pOUT;
 COMPLEX_long ADC_buff[FFT_FILTER_SIZE];
 COMPLEX_long DAC_buff[FFT_FILTER_SIZE];
 
-COMPLEX_float cfft_buffer[FFT_FILTER_SIZE]@"CCM_RAM";       // внутренни буффер для БПФ
-COMPLEX_float cfft_buffer_old[FFT_FILTER_SIZE/2]@"CCM_RAM"; // внутренни буффер для БПФ старые данные
-COMPLEX_float buffer_old[40]@"CCM_RAM";                     // для смещения спектра SHIFT (48k/2048 = 23.4375Hz*40 = 937.5Hz)
-COMPLEX_float FIR_coef[FFT_FILTER_SIZE]@"CCM_RAM";          // Filter
+COMPLEX_float cfft_buffer[FFT_FILTER_SIZE] CCM_RAM;       // внутренни буффер для БПФ
+COMPLEX_float cfft_buffer_old[FFT_FILTER_SIZE/2] CCM_RAM; // внутренни буффер для БПФ старые данные
+COMPLEX_float buffer_old[40] CCM_RAM;                     // для смещения спектра SHIFT (48k/2048 = 23.4375Hz*40 = 937.5Hz)
+COMPLEX_float FIR_coef[FFT_FILTER_SIZE] CCM_RAM;          // Filter
 
 float Buf_float_tmp[FFT_FILTER_SIZE/2];                       // Аудио данные для AGC
 float Buf_float_tmp2[Buf_float_tmp2_size];                  // RX - spectr_waterfall / TX - echo

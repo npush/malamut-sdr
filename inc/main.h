@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+#include <math.h> 
 
 #include "stm32f4xx.h"
 #include "lcd.h"
@@ -20,10 +20,10 @@
 #include "valcoder.h"
 #include "ad985x.h"
 #include "dds.h"
-#include "Si5351.h"
+//#include "Si5351.h" 
 #include "Smetr.h"
 #include "key.h"
-#include "menu_sel.h"
+//#include "menu_sel.h"
 #include "menu_setup.h"
 #include "Clock.h"
 #include "adc.h"
@@ -259,6 +259,8 @@ extern unsigned short Waterfall_gamma[256];
 
 #include "lmadf.h"
 
+#define CCM_RAM __attribute__((section(".ccmram")))
+
 extern float dspGain;
 
 extern unsigned char need_next;
@@ -276,10 +278,10 @@ extern __IO COMPLEX_long *pOUT;
 extern COMPLEX_long ADC_buff[FFT_FILTER_SIZE];
 extern COMPLEX_long DAC_buff[FFT_FILTER_SIZE];
 
-extern COMPLEX_float cfft_buffer[FFT_FILTER_SIZE]@"CCM_RAM";       // внутренни буффер для БПФ
-extern COMPLEX_float cfft_buffer_old[FFT_FILTER_SIZE/2]@"CCM_RAM"; // внутренни буффер для БПФ старые данные
-extern COMPLEX_float buffer_old[40]@"CCM_RAM";                     // для смещения спектра SHIFT (48k/2048 = 23.4375Hz*40 = 937.5Hz)
-extern COMPLEX_float FIR_coef[FFT_FILTER_SIZE]@"CCM_RAM";          // Filter
+extern COMPLEX_float cfft_buffer[FFT_FILTER_SIZE] CCM_RAM;       // внутренни буффер для БПФ
+extern COMPLEX_float cfft_buffer_old[FFT_FILTER_SIZE/2] CCM_RAM; // внутренни буффер для БПФ старые данные
+extern COMPLEX_float buffer_old[40] CCM_RAM;                     // для смещения спектра SHIFT (48k/2048 = 23.4375Hz*40 = 937.5Hz)
+extern COMPLEX_float FIR_coef[FFT_FILTER_SIZE] CCM_RAM;          // Filter
 extern float Buf_float_tmp[FFT_FILTER_SIZE/2];                       // Аудио данные для AGC  
 #define Buf_float_tmp2_size     FFT_FILTER_SIZE*4
 extern float Buf_float_tmp2[Buf_float_tmp2_size];                    // RX - spectr_waterfall / TX - echo

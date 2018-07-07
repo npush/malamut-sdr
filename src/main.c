@@ -15,12 +15,12 @@
 __ALIGN_BEGIN USB_OTG_CORE_HANDLE    USB_OTG_dev __ALIGN_END ;
 //============================================================================
 
-#include "Jpeg/tjpgd.h"
+#include "tjpgd.h"
 
 
 
 static const  unsigned char g_myData[] = {
-  #include "boot1.pic"//http://tools.garry.tv/bin2c/
+  #include "../boot1.pic" //http://tools.garry.tv/bin2c/
 };
 
 typedef struct {

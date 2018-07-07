@@ -3,12 +3,12 @@
 #include "lmadf.h"
 #include "math.h"
 
-#pragma section = "CCM_RAM"
-
-_lmsstate lms_buf@"CCM_RAM";
-LMSR lms@"CCM_RAM";
-REAL adaptive_filter[128]@"CCM_RAM";
-REAL delay_line[512]@"CCM_RAM";
+//#pragma section = "CCM_RAM"
+#define CCM_RAM __attribute__((section(".ccmram")))
+_lmsstate lms_buf CCM_RAM;
+LMSR lms CCM_RAM;
+REAL adaptive_filter[128] CCM_RAM;
+REAL delay_line[512] CCM_RAM;
 //------------------------------------------------------------------------------
 void new_lmsr_init( COMPLEX *signal, int signal_size,
 	  int delay,

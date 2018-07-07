@@ -135,7 +135,7 @@ void Get_FM_PLL_demodulation (COMPLEX_float * in_spec_buff, float * out_buff)
 #pragma section = "CCM_RAM"
 
 /* arctangents from 0 to pi/4 radians */
- float fast_atan_table[257]@"CCM_RAM" = {
+ float fast_atan_table[257] CCM_RAM = {
 	(float)0.000000e+00,(float) 3.921549e-03,(float) 7.842976e-03,(float) 1.176416e-02,
 	(float)1.568499e-02,(float) 1.960533e-02,(float) 2.352507e-02,(float) 2.744409e-02,
 	(float)3.136226e-02,(float) 3.527947e-02,(float) 3.919560e-02,(float) 4.311053e-02,

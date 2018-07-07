@@ -26,7 +26,8 @@ STARTUP = startup/startup_stm32f407xx.s
 SOURCES = $(shell find -L src -name '*.c') \
 		$(shell find -L $(STD_DRV) -name '*.c') \
 		$(shell find -L $(USB_DEV_DRV) -name '*.c') \
-		$(shell find -L $(USB_OTG_DRV) -name '*.c')
+		$(shell find -L $(USB_OTG_DRV) -name '*.c') \
+		$(shell find -L jpeg -name '*.c')
 #SOURCES += $(shell find -L $(CMSIS) -name '*.c') \
 
 INCLUDES += -Isrc
@@ -60,7 +61,8 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DSTM32F4XX \
 	-DMEDIA_intFLASH \
 	-DUSE_USB_OTG_FS \
-	-DHSE_VALUE=8000000
+	-DHSE_VALUE=8000000 \
+	-DARM_MATH_CM4
 
 CFLAGS = -O0 -ggdb -Wall \
 	-std=gnu99 \

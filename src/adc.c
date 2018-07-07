@@ -1,3 +1,4 @@
+#include "adc.h"
 #include "main.h"
 
 unsigned long adc_REV=0, adc_FWD=0, adc_REVt=0, adc_FWDt=0, adc_VLT=0, adc_VLTt=0, adc_CNT=0,adc1_CNT=0;

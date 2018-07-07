@@ -4,8 +4,8 @@
 #define anOrd (int)(32)// порядок должен быть кратен 4
 #define anM_delay_max (int)(64)//задержка 88
 #define anDelay_length (anM_delay_max+(FFT_FILTER_SIZE/2))
-float anH[anOrd]@"CCM_RAM";
-float anX[anDelay_length]@"CCM_RAM";
+float anH[anOrd] CCM_RAM;
+float anX[anDelay_length] CCM_RAM;
 
 void ANF_filter(float* Xinp, int size)
 {
