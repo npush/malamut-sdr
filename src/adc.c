@@ -1,5 +1,6 @@
 #include "adc.h"
 #include "main.h"
+#include "menu_sel.h"
 
 unsigned long adc_REV=0, adc_FWD=0, adc_REVt=0, adc_FWDt=0, adc_VLT=0, adc_VLTt=0, adc_CNT=0,adc1_CNT=0;
 unsigned long  PTT_SW1=0, PTT_SW1t=0, PTT_SW2=0, PTT_SW2t=0;

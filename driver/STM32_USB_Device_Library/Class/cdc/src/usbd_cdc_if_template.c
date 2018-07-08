@@ -157,7 +157,7 @@ static uint16_t TEMPLATE_Ctrl (uint32_t Cmd, uint8_t* Buf, uint32_t Len)
   */
 static uint16_t TEMPLATE_DataTx (uint8_t* Buf, uint32_t Len)
 {
-
+  int i;
   /* Get the data to be sent */
   for (i = 0; i < Len; i++)
   {

@@ -170,6 +170,7 @@ void USBD_USR_DeviceReset(uint8_t speed )
      break;
 
    default:
+      ;
      //LCD_LOG_SetFooter ("     USB Device Library v1.1.0 [??]" );
   }
 }
