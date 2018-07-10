@@ -81,8 +81,8 @@ AFLAGS = -ahls -mapcs-32
 LIBS = -larm_cortexM4lf_math
 #LIBS = -larm_cortexM4l_math
 LDFLAGS = -g -T $(LDSCRIPT) \
-	-mthumb \
-	-mcpu=cortex-m4 \
+	-mcpu=cortex-m4 -mthumb -mlittle-endian \
+	-mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb-interwork \
 	-nostdlib \
 	-Llib $(LIBS) \
 	--specs=nosys.specs
