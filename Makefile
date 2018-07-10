@@ -16,22 +16,20 @@ CXX = arm-none-eabi-g++
 LD = arm-none-eabi-gcc
 AR = arm-none-eabi-ar
 OBJCOPY = arm-none-eabi-objcopy
-SZ = arm-none-eabi-size
+SIZE = arm-none-eabi-size
 RM = rm
 
 BUILDDIR = build
 
-STARTUP = startup/startup_stm32f407xx.s
-
-SOURCES = $(shell find -L src -name '*.c') \
-		$(shell find -L $(STD_DRV) -name '*.c') \
-		$(shell find -L $(USB_DEV_DRV/Class/cdc) -name '*.c') \
-		$(shell find -L $(USB_DEV_DRV/Class/dfu) -name '*.c') \
-		$(shell find -L $(USB_DEV_DRV/Class/msc) -name '*.c') \
-		$(shell find -L $(USB_DEV_DRV/Core) -name '*.c') \
-		$(shell find -L jpeg -name '*.c')
-#SOURCES += $(shell find -L $(CMSIS) -name '*.c') \
-#$(shell find -L $(USB_OTG_DRV) -name '*.c') \
+SOURCES += $(shell find -L src -name '*.c')
+SOURCES += $(shell find -L $(STD_DRV) -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV/Class/cdc) -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV/Class/dfu) -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV/Class/msc) -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV/Core) -name '*.c')
+SOURCES += $(shell find -L jpeg -name '*.c')
+#SOURCES += $(shell find -L $(CMSIS) -name '*.c')
+#SOURCES += $(shell find -L $(USB_OTG_DRV) -name '*.c')
 
 INCLUDES += -Isrc
 INCLUDES += -Isrc/FFT
@@ -52,6 +50,7 @@ INCLUDES += -I$(USB_OTG_DRV)/inc
 #INC=$(shell find -L $(INCDIR) -name '*.h' -exec dirname {} \; | uniq)
 #INCLUDES=$(INC:%=-I%)
 
+STARTUP = startup/startup_stm32f407xx.s
 LDSCR_PATH = ld-scripts
 LDSCRIPT = $(LDSCR_PATH)/STM32F407VGTx_FLASH.ld
 
@@ -93,20 +92,24 @@ LDFLAGS = -T$(LDSCRIPT) \
 ELF = $(BUILDDIR)/main.elf
 HEX = $(BUILDDIR)/main.hex
 
-#Building
+#Compiling
 #-------------------------------------------------------------------------------
 $(BUILDDIR)/%.o: %.c
 	mkdir -p $(dir $@)
 	$(CC) -c $(CFLAGS) $< -o $@
+	@echo "Compiled "$<"!\n"
 
 $(BUILDDIR)/%.o: %.s
 	mkdir -p $(dir $@)
 	$(AC) -c $(AFLAGS) $< -o $@
+	@echo "Assembled "$<"!\n"
 
 #Linking
 #-------------------------------------------------------------------------------
 $(ELF): $(OBJECTS)
 	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
+	@echo "Linking complete!\n"
+	$(SIZE) $(ELF)
 
 #-------------------------------------------------------------------------------
 $(BIN): $(ELF)
@@ -115,9 +118,17 @@ $(BIN): $(ELF)
 $(HEX): $(ELF)
 	$(OBJCOPY) -O ihex $< $@
 
+###
+# Build Rules
+.PHONY: all release debug clean
+
 #-------------------------------------------------------------------------------
 all: $(ELF)
-	size
+
+release: $(ELF)
+
+debug: $(ELF)
+
 
 #-------------------------------------------------------------------------------
 flash: $(BIN)
@@ -125,7 +136,7 @@ flash: $(BIN)
 
 size:
 	@echo "---------------------------------------------------"
-	@$(SZ) $(ELF)
+	@$(SIZE) $(ELF)
 
 clean:
 	$(RM) -rf build
