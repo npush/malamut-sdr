@@ -23,10 +23,10 @@ BUILDDIR = build
 
 SOURCES += $(shell find -L src -name '*.c')
 SOURCES += $(shell find -L $(STD_DRV) -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV/Class/cdc) -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV/Class/dfu) -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV/Class/msc) -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV/Core) -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/cdc -name '*.c')
+#SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/dfu -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/msc -name '*.c')
+SOURCES += $(shell find -L $(USB_DEV_DRV)/Core -name '*.c')
 SOURCES += $(shell find -L jpeg -name '*.c')
 #SOURCES += $(shell find -L $(CMSIS) -name '*.c')
 #SOURCES += $(shell find -L $(USB_OTG_DRV) -name '*.c')
@@ -62,7 +62,6 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DSTM32F4XX \
 	-DMEDIA_intFLASH \
 	-DUSE_USB_OTG_FS \
-	-DMEDIA_USB_KEY \
 	-DHSE_VALUE=8000000 \
 	-DARM_MATH_CM4
 
@@ -129,6 +128,8 @@ release: $(ELF)
 
 debug: $(ELF)
 
+test:
+	@echo $(SOURCES)
 
 #-------------------------------------------------------------------------------
 flash: $(BIN)
