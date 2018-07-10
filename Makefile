@@ -23,10 +23,10 @@ BUILDDIR = build
 
 SOURCES += $(shell find -L src -name '*.c')
 SOURCES += $(shell find -L $(STD_DRV) -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/cdc -name '*.c')
+#SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/cdc -name '*.c')
 #SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/dfu -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/msc -name '*.c')
-SOURCES += $(shell find -L $(USB_DEV_DRV)/Core -name '*.c')
+#SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/msc -name '*.c')
+#SOURCES += $(shell find -L $(USB_DEV_DRV)/Core -name '*.c')
 SOURCES += $(shell find -L jpeg -name '*.c')
 #SOURCES += $(shell find -L $(CMSIS) -name '*.c')
 #SOURCES += $(shell find -L $(USB_OTG_DRV) -name '*.c')
@@ -65,10 +65,10 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DHSE_VALUE=8000000 \
 	-DARM_MATH_CM4
 
-CFLAGS = -O0 -ggdb -Wall \
+CFLAGS = -O0 -g -Wall \
 	-std=gnu99 \
-	-mcpu=cortex-m4 -mthumb \
-	-mfpu=fpv4-sp-d16 -mfloat-abi=hard \
+	-mcpu=cortex-m4 -mthumb -mlittle-endian \
+	-mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb-interwork \
 	$(DEFS) \
 	$(INCLUDES)
 
@@ -78,13 +78,13 @@ AFLAGS = -ahls -mapcs-32
 
 #LINKER
 #-------------------------------------------------------------------------------
-#LIBS = -larm_cortexM4lf_math
-LIBS = -larm_cortexM4l_math
-LDFLAGS = -T$(LDSCRIPT) \
+LIBS = -larm_cortexM4lf_math
+#LIBS = -larm_cortexM4l_math
+LDFLAGS = -g -T $(LDSCRIPT) \
 	-mthumb \
 	-mcpu=cortex-m4 \
 	-nostdlib \
-	-static -L./lib $(LIBS) \
+	-Llib $(LIBS) \
 	--specs=nosys.specs
 
 #-------------------------------------------------------------------------------
