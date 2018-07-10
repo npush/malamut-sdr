@@ -29,9 +29,9 @@ SOURCES = $(shell find -L src -name '*.c') \
 		$(shell find -L $(USB_DEV_DRV/Class/dfu) -name '*.c') \
 		$(shell find -L $(USB_DEV_DRV/Class/msc) -name '*.c') \
 		$(shell find -L $(USB_DEV_DRV/Core) -name '*.c') \
-		$(shell find -L $(USB_OTG_DRV) -name '*.c') \
 		$(shell find -L jpeg -name '*.c')
 #SOURCES += $(shell find -L $(CMSIS) -name '*.c') \
+#$(shell find -L $(USB_OTG_DRV) -name '*.c') \
 
 INCLUDES += -Isrc
 INCLUDES += -Isrc/FFT
@@ -48,7 +48,6 @@ INCLUDES += -I$(USB_DEV_DRV)/Class/msc/inc
 INCLUDES += -I$(USB_DEV_DRV)/Core/inc
 INCLUDES += -I$(USB_OTG_DRV)/inc
 
-
 # Find header directories
 #INC=$(shell find -L $(INCDIR) -name '*.h' -exec dirname {} \; | uniq)
 #INCLUDES=$(INC:%=-I%)
@@ -64,8 +63,7 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DSTM32F4XX \
 	-DMEDIA_intFLASH \
 	-DUSE_USB_OTG_FS \
-	-DUSE_USB_OTG_HS \
-	-DUSB_OTG_FS_CORE \
+	-DMEDIA_USB_KEY \
 	-DHSE_VALUE=8000000 \
 	-DARM_MATH_CM4
 
@@ -88,23 +86,12 @@ LDFLAGS = -T$(LDSCRIPT) \
 	-mthumb \
 	-mcpu=cortex-m4 \
 	-nostdlib \
-	-static -L./lib $(LIBS)
+	-static -L./lib $(LIBS) \
+	--specs=nosys.specs
 
 #-------------------------------------------------------------------------------
 ELF = $(BUILDDIR)/main.elf
 HEX = $(BUILDDIR)/main.hex
-
-#-------------------------------------------------------------------------------
-$(BIN): $(ELF)
-	$(OBJCOPY) -O binary $< $@
-
-$(HEX): $(ELF)
-	$(OBJCOPY) -O ihex $< $@
-
-#Linking
-#-------------------------------------------------------------------------------
-$(ELF): $(OBJECTS)
-	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
 
 #Building
 #-------------------------------------------------------------------------------
@@ -114,7 +101,23 @@ $(BUILDDIR)/%.o: %.c
 
 $(BUILDDIR)/%.o: %.s
 	mkdir -p $(dir $@)
-	$(CC) -c $(AFLAGS) $< -o $@
+	$(AC) -c $(AFLAGS) $< -o $@
+
+#Linking
+#-------------------------------------------------------------------------------
+$(ELF): $(OBJECTS)
+	$(LD) $(LDFLAGS) -o $@ $(OBJECTS) $(LDLIBS)
+
+#-------------------------------------------------------------------------------
+$(BIN): $(ELF)
+	$(OBJCOPY) -O binary $< $@
+
+$(HEX): $(ELF)
+	$(OBJCOPY) -O ihex $< $@
+
+#-------------------------------------------------------------------------------
+all: $(ELF)
+	size
 
 #-------------------------------------------------------------------------------
 flash: $(BIN)
@@ -122,7 +125,7 @@ flash: $(BIN)
 
 size:
 	@echo "---------------------------------------------------"
-	@$(SZ) $(ELF).elf
+	@$(SZ) $(ELF)
 
 clean:
 	$(RM) -rf build
