@@ -21,6 +21,9 @@ RM = rm
 
 BUILDDIR = build
 
+STARTUP = startup/startup_stm32f407xx.s
+
+SOURCES = $(STARTUP)
 SOURCES += $(shell find -L src -name '*.c')
 SOURCES += $(shell find -L $(STD_DRV) -name '*.c')
 #SOURCES += $(shell find -L $(USB_DEV_DRV)/Class/cdc -name '*.c')
@@ -50,7 +53,6 @@ INCLUDES += -I$(USB_OTG_DRV)/inc
 #INC=$(shell find -L $(INCDIR) -name '*.h' -exec dirname {} \; | uniq)
 #INCLUDES=$(INC:%=-I%)
 
-STARTUP = startup/startup_stm32f407xx.s
 LDSCR_PATH = ld-scripts
 LDSCRIPT = $(LDSCR_PATH)/STM32F407VGTx_FLASH.ld
 
@@ -65,27 +67,30 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DHSE_VALUE=8000000 \
 	-DARM_MATH_CM4
 
-CFLAGS = -O0 -g -Wall \
+MFLAGS = -mcpu=cortex-m4 -mthumb -mlittle-endian \
+	-mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb-interwork
+
+CFLAGS = -O0 -g -Wall -Wa,-aslh \
 	-std=gnu99 \
-	-mcpu=cortex-m4 -mthumb -mlittle-endian \
-	-mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb-interwork \
+	-fno-common \
+	$(MFLAGS) \
 	$(DEFS) \
 	$(INCLUDES)
 
 #ASM
 #-------------------------------------------------------------------------------
-AFLAGS = -ahls -mapcs-32
+#AFLAGS = -ahls, -mapcs-32
 
 #LINKER
 #-------------------------------------------------------------------------------
 LIBS = -larm_cortexM4lf_math
 #LIBS = -larm_cortexM4l_math
 LDFLAGS = -g -T $(LDSCRIPT) \
-	-mcpu=cortex-m4 -mthumb -mlittle-endian \
-	-mfpu=fpv4-sp-d16 -mfloat-abi=soft -mthumb-interwork \
+	$(MFLAGS) \
 	-nostdlib \
 	-Llib $(LIBS) \
-	--specs=nosys.specs
+	--specs=nosys.specs \
+	-Wl,--gc-sections \
 
 #-------------------------------------------------------------------------------
 ELF = $(BUILDDIR)/main.elf
@@ -95,12 +100,12 @@ HEX = $(BUILDDIR)/main.hex
 #-------------------------------------------------------------------------------
 $(BUILDDIR)/%.o: %.c
 	mkdir -p $(dir $@)
-	$(CC) -c $(CFLAGS) $< -o $@
+	$(CC) -c $(CFLAGS) $< -o $@ > $@.s
 	@echo "Compiled "$<"!\n"
 
 $(BUILDDIR)/%.o: %.s
 	mkdir -p $(dir $@)
-	$(AC) -c $(AFLAGS) $< -o $@
+	$(AS) -c $(AFLAGS) $< -o $@
 	@echo "Assembled "$<"!\n"
 
 #Linking
