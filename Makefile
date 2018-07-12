@@ -65,10 +65,11 @@ DEFS = -DUSE_STDPERIPH_DRIVER \
 	-DMEDIA_intFLASH \
 	-DUSE_USB_OTG_FS \
 	-DHSE_VALUE=8000000 \
-	-DARM_MATH_CM4
+	-DARM_MATH_CM4 \
+	-D__FPU_PRESENT
 
 MFLAGS = -mcpu=cortex-m4 -mthumb -mlittle-endian \
-	-mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb-interwork
+	-mfpu=fpv4-sp-d16 -mfloat-abi=softfp -mthumb-interwork
 
 CFLAGS = -O0 -g -Wall -Wa,-aslh \
 	-std=gnu99 \
@@ -83,8 +84,8 @@ CFLAGS = -O0 -g -Wall -Wa,-aslh \
 
 #LINKER
 #-------------------------------------------------------------------------------
-LIBS = -larm_cortexM4lf_math
-#LIBS = -larm_cortexM4l_math
+#LIBS = -larm_cortexM4lf_math
+LIBS = -larm_cortexM4l_math
 LDFLAGS = -g -T $(LDSCRIPT) \
 	$(MFLAGS) \
 	-nostdlib \
